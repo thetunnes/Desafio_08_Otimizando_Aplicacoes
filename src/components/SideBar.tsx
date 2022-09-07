@@ -1,4 +1,5 @@
 import { Button } from "./Button";
+import { useCallback } from 'react';
 
 interface SideBarProps {
   genres: Array<{
@@ -15,6 +16,11 @@ export function SideBar({
   selectedGenreId,
   buttonClickCallback
 }: SideBarProps) {
+
+  const button = useCallback((genreId) => {
+    buttonClickCallback(genreId);
+  }, [])
+  
   return (
     <nav className="sidebar">
       <span>Watch<p>Me</p></span>
@@ -25,7 +31,7 @@ export function SideBar({
             key={String(genre.id)}
             title={genre.title}
             iconName={genre.name}
-            onClick={() => buttonClickCallback(genre.id)}
+            onClick={() => button(genre.id)}
             selected={selectedGenreId === genre.id}
           />
         ))}
